@@ -18,11 +18,11 @@ return {
             })
 
             vim.api.nvim_set_hl(0, "NeoTreeNormal", {
-                bg = "#182030",
+                bg = "#1f1f26",
             })
 
             vim.api.nvim_set_hl(0, "NeoTreeNormalNC", {
-                bg = "#182030",
+                bg = "#1f1f26",
             })
         end,
     },
