@@ -24,56 +24,13 @@ return {
         },
     },
 
+    -- lualine config
     {
         "nvim-lualine/lualine.nvim",
         dependencies = {
             "SmiteshP/nvim-navic",
             "nvim-tree/nvim-web-devicons",
         },
-        opts = {
-            options = {
-                globalstatus = true, -- ensures status bar is not on split windows
-                theme = require("config.themes.bubbles"),
-                component_separators = '',
-                section_separators = { left = '', right = ''}
-        },
-            sections = {
-                lualine_a = {
-                    {"mode", seperator = { left = ' ' }, right_padding = 2},
-                },
-                lualine_b = {
-                    {"lsp_status"},
-                },
-                lualine_c = {
-                    {"filename"},
-                    {
-                        function()
-                            -- ==> returns location of cursor
-                            return require("nvim-navic").get_location()
-                        end,
-                        cond = function()
-                            -- returns boolean value
-                            return require("nvim-navic").is_available()
-                        end,
-                    },
-                },
-            },
-
-        tabline = {
-                lualine_a = {
-                    {
-                    'buffers',
-                     mode = 2,
-            },
-        },
-                lualine_b = {},
-                lualine_c = {},
-                lualine_x = {},
-                lualine_y = {'branch'},
-                lualine_z = { function ()
-                  return '➇ ❹ ➇'
-                end }
-            }
-        },
+        opts = require("config.themes.smooth_minimal")
     },
 }
