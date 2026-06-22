@@ -48,8 +48,18 @@ local function runFile (search)
     if filecmd == nil then
         print("No file runner set for this file type. Check ==> ~/.config/init.lua")
     else
+        vim.cmd ("w")
         vim.cmd(":!"..filecmd.." %")
         print("\n==> "..filepath)
+    end
+end
+
+-- checks if file has a name
+local function namecheck ()
+    if vim.api.nvim_buf_get_name(0) == "" then
+        return false
+    else
+        return true
     end
 end
 
@@ -75,34 +85,38 @@ vim.api.nvim_create_autocmd("CursorHold", {
     desc = "Shows error msg when cursor hovers"
 })
 
--- keybinds
+-- general (keybinds)
 vim.keymap.set ("i","jj", "<Esc>", {desc = "swap from insert to norm"})
+
+vim.keymap.set ("n","<C-s>", function ()
+   vim.cmd ("w")
+end, {desc = "Saves file"})
 
 vim.keymap.set ("n","<leader>r", function()
     runFile(runner)
 end, {desc = "Save and run current file"})
 
-vim.keymap.set ("n","<leader>t", function()
-    vim.cmd(":tabnew")
-end, {desc = "Load a new nvim tab"})
-
-vim.keymap.set ("n", "<leader>tx", function()
-    vim.cmd(":tabclose")
-end, {desc = "Close the current nvim tab"})
-
 vim.keymap.set ("n","<leader>e", function ()
-    vim.cmd (":Ex")
+    vim.cmd ("Ex")
 end, {desc = "File explorer"})
 
 vim.keymap.set("n","<leader>h", function ()
-    vim.cmd (":lua vim.diagnostic.open_float()")
+    vim.cmd ("lua vim.diagnostic.open_float()")
 end, {desc = "Displays all hints on highlighted row"})
 
-for i = 1, 9 do
-    vim.keymap.set("n", "<C-" .. i .. ">", function()
-        vim.cmd(i .. "wincmd w")
-    end, { desc = "Changes window" })
-end
+-- buffer, window, and tab management (keybinds)
+vim.keymap.set ("n","<leader>bd", function ()
+    if namecheck() then
+        if vim.bo.modified then
+            vim.cmd ("w")
+            vim.cmd ("bd")
+        else
+            vim.cmd ("bd")
+        end
+   else
+        vim.cmd ("bd!")
+    end
+end, {desc = "Closes current active buffer"})
 
 local orientations = {
     { key = "v", command = "vertical" },
@@ -121,6 +135,20 @@ for _,ori in ipairs(orientations) do
     end
 end
 
+vim.keymap.set ("n","<leader>t", function()
+    vim.cmd("tabnew")
+end, {desc = "Load a new tab"})
+
+vim.keymap.set ("n", "<leader>tx", function()
+    vim.cmd("tabclose")
+end, {desc = "Close the current tab"})
+
+for i = 1, 9 do
+    vim.keymap.set("n", "<C-" .. i .. ">", function()
+        vim.cmd(i .. "wincmd w")
+    end, { desc = "Changes window" })
+end
+
 vim.keymap.set ("n","<leader>sv", function ()
    vim.cmd ("vnew")
 end, {desc = "Splits window verticaly and does not fill window w buffer"})
@@ -128,12 +156,3 @@ end, {desc = "Splits window verticaly and does not fill window w buffer"})
 vim.keymap.set ("n","<leader>sh", function ()
    vim.cmd ("new")
 end, {desc = "Splits window horizontaly and does not fill window w buffer"})
-
-vim.keymap.set ("n","<leader>bd", function ()
-   vim.cmd ("bd")
-end, {desc = "Closes current active buffer"})
-
-vim.keymap.set ("n","<C-s>", function ()
-   vim.cmd ("w")
-end, {desc = "Saves file"})
-
