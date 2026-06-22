@@ -1,5 +1,4 @@
--- Custom simple lualine config
--- Author: Hunter Pallister 
+
 
 local colors = {
     black = "#080808",
@@ -34,7 +33,6 @@ local theme = {
         a = {  fg = colors.white, bg = colors.black },
         b = {  fg = colors.white, bg = colors.black },
         c = {  fg = colors.white }
-
     },
 }
 
@@ -91,38 +89,11 @@ return {
             },
             "filetype",
         },
+        lualine_z = {
+            {
+               "tabs",
+                mode = 2,
+            },
+        },
     },
-
-    -- top status bar
-    tabline = {
-        lualine_a = {
-            {
-                "tabs",
-                mode = 2,
-            },
-
-            {
-                -- seperates tabs from buffs
-                function ()
-                    return "❯❯❯❯❯"
-                end,
-                color = {
-                    fg = colors.black,
-                    bg = colors.eggshell,
-                },
-            },
-        },
-        lualine_b = {
-            {
-                "buffers",
-                mode = 2,
-            },
-        },
-        lualine_c = {},
-        lualine_x = {},
-        lualine_y = {"branch"},
-        lualine_z = { function ()
-          return '➇ ❹ ➇'
-        end }
-    }
 }
