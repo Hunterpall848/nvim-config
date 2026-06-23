@@ -27,8 +27,9 @@ A personal Neovim setup written in Lua and managed with `lazy.nvim`.
 | `nvim-navic` | Code-location breadcrumbs |
 | `nvim-treesitter` | Syntax-aware highlighting and code structure |
 | `telescope.nvim` | File, text, buffer, help, and symbol search |
-| `smear-cursor.nvim` | Cursor animation |
+| `smear-cursor.nvim` | Input cursor animation |
 | `nvim-web-devicons` | File and UI icons |
+| `gitsigns` | Better git controls and visual indicators | 
 
 ## External Requirements
 
