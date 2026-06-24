@@ -71,20 +71,6 @@ end, {
     desc = "Runs current file"
 })
 
-vim.api.nvim_create_autocmd("CursorHold", {
-    callback = function()
-    vim.diagnostic.open_float(nil, {
-        focus = false,
-        scope = "cursor",
-        border = "rounded",
-        source = "always",
-        header = "",
-        prefix = "",
-    })
-    end,
-    desc = "Shows error msg when cursor hovers"
-})
-
 -- general (keybinds)
 vim.keymap.set ("i","jj", "<Esc>", {desc = "swap from insert to norm"})
 
@@ -100,9 +86,20 @@ vim.keymap.set ("n","<leader>e", function ()
     vim.cmd ("Ex")
 end, {desc = "File explorer"})
 
-vim.keymap.set("n","<leader>h", function ()
-    vim.cmd ("lua vim.diagnostic.open_float()")
-end, {desc = "Displays all hints on highlighted row"})
+-- diagnostics (keybinds)
+vim.keymap.del("n", "<C-w>d")
+vim.keymap.set("n", "<leader>d", function()
+  vim.diagnostic.open_float(nil, {
+    focus = false,
+    scope = "line",
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = "",
+  })
+end, {
+  desc = "Show diagnostic",
+})
 
 -- buffer, window, and tab management (keybinds)
 vim.keymap.set ("n","<leader>bd", function ()

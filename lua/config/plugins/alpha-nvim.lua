@@ -11,9 +11,18 @@ return {
 
     opts = function()
         local dashboard = (require("alpha.themes.dashboard"))
+
+        dashboard.config.layout = {
+            {type = "padding", val = 12},
+            dashboard.section.header,
+            {type = "padding", val = 4},
+            dashboard.section.buttons,
+            {type = "padding", val = 2},
+            dashboard.section.footer,
+        }
+
         --ensure randomization across sessions
         math.randomseed(vim.uv.hrtime())
-
         -- count by character rather than bytes
         local charhl_to_bytehl = require("alpha.utils").charhl_to_bytehl
 
@@ -145,32 +154,19 @@ return {
         grayline (16, 11)
 
         -- returns random color highlight and range
-        local function randomcolors (looplength)
-            local color_lst = {}
-            for _ = 1, looplength do
-                local x = 0
-                local start = math.random(54,56)
-                local finish = start+1
-                table.insert(color_lst,{
-                    -- controls random color
+        local function add_random_sparkles(row, count)
+            for _ = 1, count do
+                local start_col = math.random(54, 56)
+
+                table.insert(highlights[row], {
                     "yellow",
-                    start,
-                    finish
+                    start_col,
+                    start_col + 1,
                 })
             end
-            return color_lst
         end
-
-        local function insertcolor (index, looplength)
-            local randclrs = randomcolors(looplength)
-            for _,value in ipairs(randclrs) do
-                table.insert(highlights[index], value)
-            end
-        end
-
-        -- color loop
-        for i = 4,8 do
-            insertcolor(i, math.random(1,3))
+        for row = 4, 8 do
+            add_random_sparkles(row, math.random(1, 3))
         end
 
         -- color sections function
