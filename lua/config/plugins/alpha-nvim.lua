@@ -15,17 +15,19 @@ return {
         dashboard.config.layout = {
             {type = "padding", val = 12},
             dashboard.section.header,
-            {type = "padding", val = 4},
+            {type = "padding", val = 3},
             dashboard.section.buttons,
-            {type = "padding", val = 2},
+            {type = "padding", val = 1},
             dashboard.section.footer,
         }
 
-        --ensure randomization across sessions
+        -- ensure randomization across sessions
         math.randomseed(vim.uv.hrtime())
         -- count by character rather than bytes
         local charhl_to_bytehl = require("alpha.utils").charhl_to_bytehl
 
+
+        -- header section --
         dashboard.section.header.val = {
             "═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════",
             "                                                                                                                   ",
@@ -174,15 +176,43 @@ return {
 
 
 
+        -- button table --
+        local function seperator ()
+            return {
+                type = "text",
+                val = "⛊ ════════════════════════════════════════════════════════════════ ⛊",
+                opts = {
+                    position = "center",
+                    hl = "gray",
+                },
+            }
+        end
+
+        local function seperator2 ()
+            return {
+                type = "text",
+                val = "════════════════════════════════════════════════════════",
+                opts = {
+                    position = "center",
+                    hl = "blue_bright",
+                },
+            }
+        end
 
         dashboard.section.buttons.val = {
+            seperator(),
+            seperator2(),
             dashboard.button("f", "󰈞  Find file", "<cmd>Telescope find_files<CR>"),
             dashboard.button("r", "󰱼  Recent files", "<cmd>Telescope oldfiles<CR>"),
-            dashboard.button("c", "⚙ Configurations", "<cmd>edit ~/.config/nvim<CR>"),
+            dashboard.button("c", "⚙  Configurations", "<cmd>edit ~/.config/nvim<CR>"),
             dashboard.button("l", "󰒲  Lazy", "<cmd>Lazy<CR>"),
             dashboard.button("q", "󰗼  Quit", "<cmd>qa<CR>"),
+            seperator2(),
+            seperator(),
         }
 
+
+        -- footer section --
         dashboard.section.footer.val = "Keep building."
 
         return dashboard.config
