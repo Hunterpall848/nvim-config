@@ -10,6 +10,7 @@ return {
         },
 
     opts = function()
+        local timer = (require("config.nvim-timer"))
         local dashboard = (require("alpha.themes.dashboard"))
 
         dashboard.config.layout = {
@@ -174,8 +175,6 @@ return {
         -- color sections function
         dashboard.section.header.opts.hl = charhl_to_bytehl(highlights, dashboard.section.header.val)
 
-
-
         -- button table --
         local function seperator ()
             return {
@@ -211,10 +210,13 @@ return {
             seperator(),
         }
 
-
         -- footer section --
-        dashboard.section.footer.val = "Keep building."
+        dashboard.section.footer.val = "Time spent 𐌔𐌌𐌀𐌔𐋅𐌉𐌍Ᏽ 𐌊𐌄𐌙𐌔 in Neovim: " .. timer[1]
 
+        dashboard.section.footer.opts = {
+            hl = "white",
+            position = "center",
+        }
         return dashboard.config
     end,
     },
