@@ -6,6 +6,7 @@ A personal Neovim setup written in Lua and managed with `lazy.nvim`.
 ## Core Files
 
 - `init.lua` contains general Neovim options, keymaps, and startup configuration.
+	- 'nvim-timer.lua' initializes a timer for tracking total recurring time spent in nvim.
 - `lua/config/lazy.lua` bootstraps `lazy.nvim` and imports plugin specs.
 - `lua/config/plugins/` contains individual plugin configurations.
 - `lua/config/themes/` contains local Lualine theme and layout modules.
@@ -30,6 +31,7 @@ A personal Neovim setup written in Lua and managed with `lazy.nvim`.
 | `smear-cursor.nvim` | Input cursor animation |
 | `nvim-web-devicons` | File and UI icons |
 | `gitsigns` | Better git controls and visual indicators | 
+| `alpha-nvim` | Startup screen display configuration |
 
 ## External Requirements
 
